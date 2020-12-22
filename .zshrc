@@ -8,8 +8,8 @@ export ZSH="/Users/dreamhuang/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME="ys"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -80,6 +80,8 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LANG="zh_CN.UTF-8"
+export LC_ALL="zh_CN.UTF-8"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -102,3 +104,48 @@ source $ZSH/oh-my-zsh.sh
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 # source $ZSH/custom/plugins/incr/incr*.zsh
 alias rm='rmtrash'
+alias ssh_hp='ssh -p 19917 2017010191@166.111.227.244'
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+#customize prompt
+PROMPT="
+%{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
+%(#,%{$bg[yellow]%}%{$fg[black]%}%n%{$reset_color%},%{$fg[cyan]%}%n) \
+%{$fg[white]%}@ \
+%{$fg[green]%}%m \
+%{$fg[white]%}in \
+%{$terminfo[bold]$fg[yellow]%}%(5~|%-1~/.../%3~|%4~)%{$reset_color%}\
+${hg_info}\
+${git_info}\
+ \
+%{$fg[white]%}[%*] $exit_code
+%{$terminfo[bold]$fg[red]%}$ %{$reset_color%}"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# 编译原理课程的文件夹
+export PATH="$PATH:/Users/dreamhuang/TsinghuaYear3Autumn/Compiler/spike-pk:/Users/dreamhuang/TsinghuaYear3Autumn/Compiler/riscv64-unknown-elf/bin"
+# antlr4的相关配置
+export CLASSPATH=".:/usr/local/lib/antlr-4.8-complete.jar:$CLASSPATH"
+alias antlr4='java -jar /usr/local/lib/antlr-4.8-complete.jar'
+alias grun='java org.antlr.v4.gui.TestRig'
+
+# 网络原理连接树莓派
+alias ssh_pi="ssh -o ForwardAgent=yes pi@raspberrypi.local"
+
+# tmux显示一个时钟
+alias clock="tty-clock -n -c -D" # -n表示不响应按键 -c表示显示在中间 -D表示不显示日期
